@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'AuthenticationException' => 'شما احراز هویت نشده اید.',
     'NotFoundHttpException' => 'آدرس مورد نظر یافت نشد.',
     'ModelNotFoundException' => ':attribute مورد نظر یافت نشد.',
     'ValidationException' => 'اطلاعات وارد شده صحیح نمی باشد.',
