@@ -11,8 +11,8 @@ trait WithUuidColumn
     {
         static::creating(function (self $model) {
             if (! $model->getKey()) {
-                $uuid = @$model->{$model->getUuidKey()};
-                $model->{$model->getUuidKey()} = (!is_null($uuid) && Str::isUuid($uuid)) ? $uuid : Str::uuid()->toString();
+                $uuid = @$model->{$model->getUuidKeyName()};
+                $model->{$model->getUuidKeyName()} = (!is_null($uuid) && Str::isUuid($uuid)) ? $uuid : Str::uuid()->toString();
             }
         });
     }
@@ -20,10 +20,10 @@ trait WithUuidColumn
     #[Pure]
     public function getRouteKeyName(): string
     {
-        return $this->getUuidKey();
+        return $this->getUuidKeyName();
     }
 
-    public function getUuidKey(): string
+    public function getUuidKeyName(): string
     {
         return 'uuid';
     }

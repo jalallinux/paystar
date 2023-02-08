@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use JetBrains\PhpStorm\Pure;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
@@ -35,9 +36,15 @@ class User extends Authenticatable implements JWTSubject
         return Hash::check($number, $this->attributes['card_number']);
     }
 
+    #[Pure]
+    public function getAuthIdentifierName(): string
+    {
+        return $this->getUuidKeyName();
+    }
+
     public function getJWTIdentifier()
     {
-        return $this->getKey();
+        return $this->getAttribute($this->getUuidKeyName());
     }
 
     public function getJWTCustomClaims(): array
