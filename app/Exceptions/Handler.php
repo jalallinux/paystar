@@ -84,7 +84,7 @@ class Handler extends ExceptionHandler
     {
         if ($request->expectsJson()) {
             $e = new ValidationException($e->validator, (\response()->json([
-                'message' => __('validation.exceptions.ValidationException'),
+                'message' => __('exceptions.ValidationException'),
                 'errors' => $e->errors()
             ], $e->status)), $e->errorBag);
         }
@@ -96,15 +96,15 @@ class Handler extends ExceptionHandler
         if ($request->expectsJson()) {
             switch (get_class($e)) {
                 case AuthorizationException::class:
-                    return response()->json(__('validation.exceptions.AuthorizationException'), 403);
+                    return response()->json(['message' => __('exceptions.AuthorizationException')], 403);
                 case ThrottleRequestsException::class:
-                    return response()->json(__('validation.exceptions.ThrottleRequestsException'), 429);
+                    return response()->json(['message' => __('exceptions.ThrottleRequestsException')], 429);
                 case ModelNotFoundException::class:
-                    return response()->json(__('validation.exceptions.ModelNotFoundException', [
+                    return response()->json(['message' => __('exceptions.ModelNotFoundException', [
                         'attribute' => __('validation.attributes.' . classToSlug($e->getModel()))
-                    ]), 404);
+                    ])], 404);
                 case NotFoundHttpException::class:
-                    return response()->json(__('validation.exceptions.NotFoundHttpException'), 404);
+                    return response()->json(['message' => __('exceptions.NotFoundHttpException')], 404);
                 case CustomException::class:
                     return response()->json($e->getMessage(), $e->getCode());
                 case QueryException::class:
