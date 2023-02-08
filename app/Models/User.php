@@ -26,4 +26,9 @@ class User extends Authenticatable
     {
         $this->attributes['card_number'] = Hash::make($value);
     }
+
+    public function checkCardNumber(string $number): bool
+    {
+        return Hash::check($number, $this->attributes['card_number']);
+    }
 }
