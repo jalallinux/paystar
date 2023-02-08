@@ -1,0 +1,11 @@
+version: '3'
+services:
+    app:
+        container_name: 'paystar.jalallinux.ir'
+        build:
+            context: .
+            dockerfile: Dockerfile
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        ports:
+            - '0.0.0.0:9020:8000'
