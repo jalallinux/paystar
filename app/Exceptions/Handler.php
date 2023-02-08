@@ -69,7 +69,7 @@ class Handler extends ExceptionHandler
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         return $request->expectsJson()
-            ? response()->json(__('auth.unauthenticated'), 401)
+            ? response()->json(['message' => __('exceptions.AuthenticationException')], 401)
             : redirect()->guest($exception->redirectTo() ?? route('login'));
     }
 
@@ -106,7 +106,7 @@ class Handler extends ExceptionHandler
                 case NotFoundHttpException::class:
                     return response()->json(['message' => __('exceptions.NotFoundHttpException')], 404);
                 case CustomException::class:
-                    return response()->json($e->getMessage(), $e->getCode());
+                    return response()->json(['message' => $e->getMessage()], $e->getCode());
                 case QueryException::class:
                     $this->convertQueryExceptions($request, $e);
                     break;
