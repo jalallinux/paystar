@@ -21,4 +21,9 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = Hash::make($value);
     }
+
+    public function setCardNumberAttribute($value)
+    {
+        $this->attributes['card_number'] = Hash::make($value);
+    }
 }
