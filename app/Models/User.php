@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\WithUuidColumn;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -20,6 +21,11 @@ class User extends Authenticatable implements JWTSubject
         'balance' => 'integer',
         'created_at' => 'timestamp',
     ];
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
+    }
 
     public function setPasswordAttribute($value)
     {
