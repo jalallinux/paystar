@@ -19,7 +19,6 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = ['password', 'card_number',];
     protected $casts = [
         'balance' => 'integer',
-        'created_at' => 'timestamp',
     ];
 
     public function payments(): HasMany

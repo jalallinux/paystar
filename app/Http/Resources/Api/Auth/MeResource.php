@@ -19,7 +19,7 @@ class MeResource extends JsonResource
             'name' => $this->resource->name,
             'email' => $this->resource->email,
             'balance' => $this->resource->balance,
-            'created_at' => $this->resource->created_at,
+            'created_at' => $this->resource->created_at->timestamp,
         ];
     }
 }

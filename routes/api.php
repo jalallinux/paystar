@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,3 +24,7 @@ Route::name('auth.')->prefix('auth')->group(function () {
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     });
 });
+
+
+Route::apiResource('payment', PaymentController::class)->except('update', 'destroy');
+Route::any('payment/{payment}/callback', [PaymentController::class, 'callback'])->name('payment.callback');
