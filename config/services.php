@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'paystar' => [
+        'base_url' => 'https://core.paystar.ir/api/pardakht',
+        'gateway_id' => env('PAYSTAR_GATEWAY_ID'),
+        'sign_key' => env('PAYSTAR_SIGN_KEY'),
+    ],
 ];
