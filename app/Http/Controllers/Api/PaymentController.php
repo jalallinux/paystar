@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\PaymentStatus;
 use App\Http\Requests\Api\Payment\PaymentCallbackRequest;
 use App\Http\Requests\Api\Payment\PaymentIndexRequest;
 use App\Http\Requests\Api\Payment\PaymentStoreRequest;
@@ -41,6 +42,23 @@ class PaymentController extends Controller
 
     public function callback(PaymentCallbackRequest $request, Payment $payment)
     {
-        $request->dd();
+        throw_if(
+            $payment->id != $request->input('order_id')
+            || $payment->ref_num != $request->input('ref_num')
+            || !PaymentStatus::PENDING()->equals($payment->status),
+            new AuthorizationException
+        );
+
+        if ($request->input('status') == 1) {
+            $payment->update(array_merge(
+                $request->safe()->only('card_number', 'tracking_code', 'transaction_id'),
+                ['status' => PaymentStatus::SUCCESS()]
+            ));
+        }
+        else {
+            $payment->changeStatus(PaymentStatus::FAILED());
+        }
+
+        return new PaymentDetailResource($payment);
     }
 }
