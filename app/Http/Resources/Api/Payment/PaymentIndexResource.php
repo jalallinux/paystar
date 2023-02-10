@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Api\Payment;
 
-use App\Http\Resources\Api\Auth\MeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PaymentIndexResource extends JsonResource
@@ -22,6 +21,8 @@ class PaymentIndexResource extends JsonResource
                 'value' => $this->resource->status->value,
             ],
             'amount' => $this->resource->amount,
+            'tracking_code' => @$this->resource->tracking_code,
+            'card_number' => @$this->resource->card_number,
             'created_at' => $this->resource->created_at->timestamp,
         ];
     }

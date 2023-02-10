@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api\Payment;
 
+use App\Enums\PaymentStatus;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PaymentDetailResource extends JsonResource
@@ -21,10 +22,11 @@ class PaymentDetailResource extends JsonResource
                 'value' => $this->resource->status->value,
             ],
             'amount' => $this->resource->amount,
-            'ref_num' => $this->resource->ref_num,
-            'transaction_id' => $this->resource->transaction_id,
-            'token' => $this->resource->token,
-            'url' => $this->resource->url,
+            'tracking_code' => @$this->resource->tracking_code,
+            'card_number' => @$this->resource->card_number,
+            $this->mergeWhen(PaymentStatus::PENDING()->equals($this->resource->status), [
+                'url' => $this->resource->url,
+            ]),
             'created_at' => $this->resource->created_at->timestamp,
         ];
     }
