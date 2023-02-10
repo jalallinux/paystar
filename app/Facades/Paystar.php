@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static Collection create(int $amount, string $paymentId, array $additional = [])
- * @method static Collection verify(int $amount, string $ref_num, string $card_number, int $tracking_code)
+ * @method static int verify(int $amount, string $ref_num, string $card_number, int $tracking_code)
  *
  * @see PaystarGateway
  */

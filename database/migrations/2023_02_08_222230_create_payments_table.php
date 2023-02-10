@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('ref_num')->nullable();
             $table->string('token')->nullable();
             $table->string('transaction_id')->nullable();
+            $table->integer('error_code')->nullable();
             $table->timestamps();
         });
     }

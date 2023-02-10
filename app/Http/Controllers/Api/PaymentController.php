@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Enums\PaymentStatus;
-use App\Http\Requests\Api\Payment\PaymentCallbackRequest;
 use App\Http\Requests\Api\Payment\PaymentIndexRequest;
 use App\Http\Requests\Api\Payment\PaymentStoreRequest;
 use App\Http\Resources\Api\Payment\PaymentDetailResource;
@@ -40,7 +39,7 @@ class PaymentController extends Controller
         return new PaymentDetailResource($payment);
     }
 
-    public function callback(PaymentCallbackRequest $request, Payment $payment)
+    public function callback(Request $request, Payment $payment)
     {
         throw_if(
             $payment->id != $request->input('order_id')
@@ -49,15 +48,17 @@ class PaymentController extends Controller
             new AuthorizationException
         );
 
-        if ($request->input('status') == 1) {
-            $payment->update(array_merge(
-                $request->safe()->only('card_number', 'tracking_code', 'transaction_id'),
-                ['status' => PaymentStatus::SUCCESS()]
-            ));
-        }
-        else {
-            $payment->changeStatus(PaymentStatus::FAILED());
-        }
+        $columns = $request->input('status') == 1 ? [
+            'card_number' => $request->input('card_number'),
+            'tracking_code' => $request->input('tracking_code'),
+            'transaction_id' => $request->input('transaction_id'),
+            'status' => PaymentStatus::SUCCESS()
+        ] : [
+            'status' => PaymentStatus::FAILED(),
+            'error_code' => $request->input('status')
+        ];
+
+        $payment->update($columns);
 
         return new PaymentDetailResource($payment);
     }

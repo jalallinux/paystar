@@ -36,7 +36,7 @@ class PaystarGateway
         return $response->collect('data');
     }
 
-    public function verify(int $amount, string $ref_num, string $card_number, int $tracking_code): bool
+    public function verify(int $amount, string $ref_num, string $card_number, int $tracking_code): int
     {
         $payload = [
             "ref_num" => $ref_num,
@@ -46,7 +46,7 @@ class PaystarGateway
 
         $response = $this->httpClient->post("verify", $payload);
 
-        return $response->json('status') == 1;
+        return intval($response->json('status'));
     }
 
 

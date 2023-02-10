@@ -8,17 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Payment extends Model
 {
-    protected $fillable = ['user_id', 'amount', 'token', 'ref_num', 'transaction_id', 'tracking_code', 'card_number', 'status'];
+    protected $fillable = ['user_id', 'amount', 'token', 'ref_num', 'transaction_id', 'tracking_code', 'card_number', 'status', 'error_code'];
     protected $casts = [
         'amount' => 'integer',
         'tracking_code' => 'integer',
+        'error_code' => 'integer',
         'status' => PaymentStatus::class,
     ];
-
-    public function changeStatus(PaymentStatus $status): bool
-    {
-        return $this->update(['status' => $status]);
-    }
 
     public function user(): BelongsTo
     {
@@ -31,5 +27,23 @@ class Payment extends Model
             $uri = "{$uri}/";
         }
         return "{$uri}payment?token={$this->token}";
+    }
+
+    public function getErrorMessageAttribute(): ?string
+    {
+        return match ($this->attributes['error_code']) {
+            -101 => "درخواست نامعتبر (خطا در پارامترهای ورودی)",
+            -102 => "درگاه فعال نیست",
+            -103 => "توکن تکراری است",
+            -104 => "مبلغ بیشتر از سقف مجاز درگاه است",
+            -105 => "شناسه ref_num معتبر نیست",
+            -106 => "تراکنش قبلا وریفای شده است",
+            -107 => "پارامترهای ارسال شده نامعتبر است",
+            -108 => "تراکنش را نمیتوان وریفای کرد",
+            -109 => "تراکنش وریفای نشد",
+            -198 => "تراکنش ناموفق",
+            -199 => "خطای سامانه",
+            default => null,
+        };
     }
 }
