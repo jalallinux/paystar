@@ -24,7 +24,13 @@ class PaymentCallbackRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'status' => ['nullable'],
+            'order_id' => ['nullable'],
+            'ref_num' => ['nullable'],
+            'transaction_id' => ['nullable'],
+            'card_number' => ['nullable'],
+            'tracking_code' => ['nullable'],
+            'sign' => ['nullable'],
         ];
     }
 }
