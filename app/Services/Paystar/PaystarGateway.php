@@ -23,7 +23,7 @@ class PaystarGateway
             "amount" => $amount,
             "order_id" => $orderId,
             "callback" => ($callbackUrl = $this->makeCallbackUrl($orderId)),
-            "sign" => $this->makeSignKey($amount, $orderId, $callbackUrl),
+            "sign" => $this->makeSign("{$amount}#{$orderId}#{$callbackUrl}"),
             "callback_method" => 0, // 1 -> GET, other -> POST
         ], $additional);
 
@@ -36,14 +36,24 @@ class PaystarGateway
         return $response->collect('data');
     }
 
-
-
-
-
-
-    private function makeSignKey(int $amount, string $orderId, string $callbackUrl): string
+    public function verify(int $amount, string $ref_num, string $card_number, int $tracking_code): bool
     {
-        return hash_hmac('SHA512', "{$amount}#{$orderId}#{$callbackUrl}", $this->signKey());
+        $payload = [
+            "ref_num" => $ref_num,
+            "amount" => $amount,
+            "sign" => $this->makeSign("{$amount}#{$ref_num}#{$card_number}#{$tracking_code}"),
+        ];
+
+        $response = $this->httpClient->post("verify", $payload);
+
+        return $response->json('status') == 1;
+    }
+
+
+
+    private function makeSign(string $data, string $algo = 'SHA512', string $key = null): string
+    {
+        return hash_hmac($algo, $data, $key ?? $this->signKey());
     }
 
     private function makeCallbackUrl(string $orderId): string
