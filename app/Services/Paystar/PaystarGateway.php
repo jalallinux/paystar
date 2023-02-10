@@ -24,6 +24,7 @@ class PaystarGateway
             "order_id" => $orderId,
             "callback" => ($callbackUrl = $this->makeCallbackUrl($orderId)),
             "sign" => $this->makeSignKey($amount, $orderId, $callbackUrl),
+            "callback_method" => 0, // 1 -> GET, other -> POST
         ], $additional);
 
         $response = $this->httpClient->post("create", $payload);

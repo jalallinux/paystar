@@ -31,6 +31,7 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    // https://docs.paystar.ir/docs/tutorial-basics/IPGD
     'paystar' => [
         'origin' => 'core.paystar.ir',
         'base_url' => 'https://core.paystar.ir/api/pardakht',

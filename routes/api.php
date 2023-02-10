@@ -33,5 +33,5 @@ Route::middleware('auth:api')->group(function () {
 });
 
 Route::middleware(PaymentCallbackOrigin::class)
-    ->match(['GET', 'POST'],'payment/{payment}/callback', [PaymentController::class, 'callback'])
+    ->post('payment/{payment}/callback', [PaymentController::class, 'callback'])
     ->name('payment.callback');
