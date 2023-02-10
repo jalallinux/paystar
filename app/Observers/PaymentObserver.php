@@ -52,6 +52,8 @@ class PaymentObserver
                     'status' => $isVerified == 1 ? PaymentStatus::VERIFIED() : PaymentStatus::UNVERIFIED(),
                     'error_code' => $isVerified == 1 ? null : $isVerified
                 ]);
+            } else {
+                $payment->update(['status' => PaymentStatus::ROLLBACK()]);
             }
         }
     }

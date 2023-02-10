@@ -10,6 +10,7 @@ use Spatie\Enum\Laravel\Enum;
  * @method static self SUCCESS()
  * @method static self VERIFIED()
  * @method static self UNVERIFIED()
+ * @method static self ROLLBACK()
  */
 final class PaymentStatus extends Enum
 {
@@ -21,6 +22,7 @@ final class PaymentStatus extends Enum
             'SUCCESS' => 'success',
             'VERIFIED' => 'verified',
             'UNVERIFIED' => 'unverified',
+            'ROLLBACK' => 'rollback',
         ];
     }
 
@@ -32,6 +34,7 @@ final class PaymentStatus extends Enum
             'SUCCESS' => 'موفق',
             'VERIFIED' => 'تایید شده',
             'UNVERIFIED' => 'تایید نشده',
+            'ROLLBACK' => 'برگشت خورده',
         ];
     }
 }
