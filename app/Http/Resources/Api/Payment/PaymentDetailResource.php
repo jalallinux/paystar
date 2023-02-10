@@ -22,7 +22,6 @@ class PaymentDetailResource extends JsonResource
             'token' => $this->resource->token,
             'url' => $this->resource->url,
             'created_at' => $this->resource->created_at->timestamp,
-            'user' => new MeResource($this->resource->user),
         ];
     }
 }
