@@ -11,16 +11,9 @@ use App\Http\Resources\Api\Payment\PaymentIndexResource;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Models\Payment;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PaymentController extends Controller
 {
-    /**
-     * Display a listing of the payment.
-     *
-     * @param PaymentIndexRequest $request
-     * @return AnonymousResourceCollection
-     */
     public function index(PaymentIndexRequest $request)
     {
         $payments = $request->user()->payments()
@@ -29,12 +22,6 @@ class PaymentController extends Controller
         return PaymentIndexResource::collection($payments);
     }
 
-    /**
-     * Store a newly created payment in storage.
-     *
-     * @param PaymentStoreRequest $request
-     * @return PaymentDetailResource
-     */
     public function store(PaymentStoreRequest $request)
     {
         $payment = $request->user()->payments()
@@ -43,14 +30,6 @@ class PaymentController extends Controller
         return new PaymentDetailResource($payment);
     }
 
-    /**
-     * Display the specified payment.
-     *
-     * @param Request $request
-     * @param Payment $payment
-     * @return PaymentDetailResource
-     * @throws \Throwable
-     */
     public function show(Request $request, Payment $payment)
     {
         throw_if(
@@ -60,13 +39,6 @@ class PaymentController extends Controller
         return new PaymentDetailResource($payment);
     }
 
-    /**
-     * Callback the specified payment in storage.
-     *
-     * @param PaymentCallbackRequest $request
-     * @param Payment $payment
-     * @return \Illuminate\Http\Response
-     */
     public function callback(PaymentCallbackRequest $request, Payment $payment)
     {
         $request->dd();

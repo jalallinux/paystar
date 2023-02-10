@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Enums\PaymentStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Http\RedirectResponse;
 
 class Payment extends Model
 {
@@ -31,10 +30,5 @@ class Payment extends Model
             $uri = "{$uri}/";
         }
         return "{$uri}payment?token={$this->token}";
-    }
-
-    public function pay(): RedirectResponse
-    {
-        return redirect()->away($this->getUrlAttribute());
     }
 }
