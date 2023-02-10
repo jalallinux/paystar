@@ -18,8 +18,10 @@ return new class extends Migration
             $table->id()->startingValue(10000001);
             $table->foreignIdFor(User::class, 'user_id')->constrained();
             $table->unsignedBigInteger('amount');
-            $table->string('token')->nullable();
             $table->string('ref_num')->nullable();
+            $table->string('token')->nullable();
+            $table->string('transaction_id')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }

@@ -2,16 +2,23 @@
 
 namespace App\Models;
 
+use App\Enums\PaymentStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Http\RedirectResponse;
 
 class Payment extends Model
 {
-    protected $fillable = ['user_id', 'amount', 'token', 'ref_num'];
+    protected $fillable = ['user_id', 'amount', 'token', 'ref_num', 'transaction_id', 'status'];
     protected $casts = [
         'amount' => 'integer',
+        'status' => PaymentStatus::class,
     ];
+
+    public function changeStatus(PaymentStatus $status): bool
+    {
+        return $this->update(['status' => $status]);
+    }
 
     public function user(): BelongsTo
     {
