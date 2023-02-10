@@ -28,6 +28,7 @@ Route::name('auth.')->prefix('auth')->group(function () {
 Route::middleware('auth:api')->group(function () {
 
     Route::apiResource('payment', PaymentController::class)->except('destroy');
-    Route::match(['GET', 'POST'],'payment/{payment}/callback', [PaymentController::class, 'callback'])->name('payment.callback');
 
 });
+
+Route::match(['GET', 'POST'],'payment/{payment}/callback', [PaymentController::class, 'callback'])->name('payment.callback');
