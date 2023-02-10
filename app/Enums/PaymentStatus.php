@@ -6,10 +6,10 @@ use Spatie\Enum\Laravel\Enum;
 
 /**
  * @method static self PENDING()
- * @method static self EXPIRED()
  * @method static self FAILED()
  * @method static self SUCCESS()
  * @method static self VERIFIED()
+ * @method static self UNVERIFIED()
  */
 final class PaymentStatus extends Enum
 {
@@ -17,10 +17,10 @@ final class PaymentStatus extends Enum
     {
         return [
             'PENDING' => 'pending',
-            'EXPIRED' => 'expired',
             'FAILED' => 'failed',
             'SUCCESS' => 'success',
             'VERIFIED' => 'verified',
+            'UNVERIFIED' => 'unverified',
         ];
     }
 
@@ -28,10 +28,10 @@ final class PaymentStatus extends Enum
     {
         return [
             'PENDING' => 'در انتظار پرداخت',
-            'EXPIRED' => 'منقضی شده',
             'FAILED' => 'ناموفق',
             'SUCCESS' => 'موفق',
             'VERIFIED' => 'تایید شده',
+            'UNVERIFIED' => 'تایید نشده',
         ];
     }
 }
