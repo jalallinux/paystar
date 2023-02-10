@@ -78,9 +78,9 @@ class Handler extends ExceptionHandler
      *
      * @param ValidationException $e
      * @param Request $request
-     * @return Response
+     * @return JsonResponse|Response|\Symfony\Component\HttpFoundation\Response
      */
-    protected function convertValidationExceptionToResponse(ValidationException $e, $request): Response
+    protected function convertValidationExceptionToResponse(ValidationException $e, $request): Response|JsonResponse|\Symfony\Component\HttpFoundation\Response
     {
         if ($request->expectsJson()) {
             $e = new ValidationException($e->validator, (\response()->json([
