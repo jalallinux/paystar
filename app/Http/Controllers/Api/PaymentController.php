@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\Payment\PaymentCallbackRequest;
 use App\Http\Requests\Api\Payment\PaymentIndexRequest;
 use App\Http\Requests\Api\Payment\PaymentStoreRequest;
-use App\Http\Resources\Api\Payment\PaymentResource;
+use App\Http\Resources\Api\Payment\PaymentDetailResource;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\Payment\PaymentIndexResource;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Models\Payment;
@@ -25,21 +26,21 @@ class PaymentController extends Controller
         $payments = $request->user()->payments()
             ->orderBy($request->orderBy(), $request->orderType())
             ->paginate($request->query('perPage'));
-        return PaymentResource::collection($payments);
+        return PaymentIndexResource::collection($payments);
     }
 
     /**
      * Store a newly created payment in storage.
      *
      * @param PaymentStoreRequest $request
-     * @return PaymentResource
+     * @return PaymentDetailResource
      */
     public function store(PaymentStoreRequest $request)
     {
         $payment = $request->user()->payments()
             ->create($request->safe()->only('amount'));
 
-        return new PaymentResource($payment);
+        return new PaymentDetailResource($payment);
     }
 
     /**
@@ -47,7 +48,7 @@ class PaymentController extends Controller
      *
      * @param Request $request
      * @param Payment $payment
-     * @return PaymentResource
+     * @return PaymentDetailResource
      * @throws \Throwable
      */
     public function show(Request $request, Payment $payment)
@@ -56,7 +57,7 @@ class PaymentController extends Controller
             $payment->user->id != $request->user()->id,
             new AuthorizationException
         );
-        return new PaymentResource($payment);
+        return new PaymentDetailResource($payment);
     }
 
     /**

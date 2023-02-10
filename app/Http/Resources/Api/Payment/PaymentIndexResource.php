@@ -5,7 +5,7 @@ namespace App\Http\Resources\Api\Payment;
 use App\Http\Resources\Api\Auth\MeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PaymentResource extends JsonResource
+class PaymentIndexResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,11 +18,7 @@ class PaymentResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'amount' => $this->resource->amount,
-            'ref_num' => $this->resource->ref_num,
-            'token' => $this->resource->token,
-            'url' => $this->resource->url,
             'created_at' => $this->resource->created_at->timestamp,
-            'user' => new MeResource($this->resource->user),
         ];
     }
 }
