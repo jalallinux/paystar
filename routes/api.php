@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Middleware\PaymentCallbackOrigin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,4 +32,6 @@ Route::middleware('auth:api')->group(function () {
 
 });
 
-Route::match(['GET', 'POST'],'payment/{payment}/callback', [PaymentController::class, 'callback'])->name('payment.callback');
+Route::middleware(PaymentCallbackOrigin::class)
+    ->match(['GET', 'POST'],'payment/{payment}/callback', [PaymentController::class, 'callback'])
+    ->name('payment.callback');
