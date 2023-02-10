@@ -33,12 +33,13 @@ class User extends Authenticatable implements JWTSubject
 
     public function setCardNumberAttribute($value)
     {
-        $this->attributes['card_number'] = Hash::make($value);
+        $this->attributes['card_number'] = filter_var($value, FILTER_SANITIZE_NUMBER_INT);
     }
 
     public function checkCardNumber(string $number): bool
     {
-        return Hash::check($number, $this->attributes['card_number']);
+        return substr_replace($this->card_number, '******', 6, 6)
+            == substr_replace($number, '******', 6, 6);
     }
 
     #[Pure]

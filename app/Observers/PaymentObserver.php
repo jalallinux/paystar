@@ -46,11 +46,13 @@ class PaymentObserver
     public function updated(Payment $payment)
     {
         if ($payment->isDirty('status') && PaymentStatus::SUCCESS()->equals($payment->status)) {
-            $isVerified = Paystar::verify($payment->amount, $payment->ref_num, $payment->card_number, $payment->tracking_code);
-            $payment->update([
-                'status' => $isVerified == 1 ? PaymentStatus::VERIFIED() : PaymentStatus::UNVERIFIED(),
-                'error_code' => $isVerified == 1 ? null : $isVerified
-            ]);
+            if ($payment->user->checkCardNumber($payment->card_number)) {
+                $isVerified = Paystar::verify($payment->amount, $payment->ref_num, $payment->card_number, $payment->tracking_code);
+                $payment->update([
+                    'status' => $isVerified == 1 ? PaymentStatus::VERIFIED() : PaymentStatus::UNVERIFIED(),
+                    'error_code' => $isVerified == 1 ? null : $isVerified
+                ]);
+            }
         }
     }
 
