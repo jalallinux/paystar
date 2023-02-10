@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Api\Payment;
 
-use App\Http\Resources\Api\Auth\MeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PaymentDetailResource extends JsonResource
