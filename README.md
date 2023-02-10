@@ -1,5 +1,7 @@
 <p align="center"><a href="https://paystar.jalallinux.ir" target="_blank"><img src="https://paystar.ir/homepage/image/logo.svg" width="400" alt="Laravel Logo"></a></p>
 
+## [Postman Documentation](https://documenter.getpostman.com/view/9339423/2s935sohUf)
+
 ## Deploy instructions with Docker
 
 ### 1. Fill environment variables in [.env.docker](.env.docker)
