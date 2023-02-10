@@ -17,11 +17,13 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id()->startingValue(10000001);
             $table->foreignIdFor(User::class, 'user_id')->constrained();
+            $table->string('status');
             $table->unsignedBigInteger('amount');
+            $table->string('tracking_code')->nullable();
+            $table->string('card_number')->nullable();
             $table->string('ref_num')->nullable();
             $table->string('token')->nullable();
             $table->string('transaction_id')->nullable();
-            $table->string('status');
             $table->timestamps();
         });
     }
