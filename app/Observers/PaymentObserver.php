@@ -16,7 +16,7 @@ class PaymentObserver
      */
     public function creating(Payment $payment)
     {
-        $payment->setAttribute('status', PaymentStatus::CREATED());
+        $payment->setAttribute('status', PaymentStatus::PENDING());
     }
 
     /**

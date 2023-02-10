@@ -5,8 +5,7 @@ namespace App\Enums;
 use Spatie\Enum\Laravel\Enum;
 
 /**
- * @method static self CREATED()
- * @method static self GATEWAY()
+ * @method static self PENDING()
  * @method static self EXPIRED()
  * @method static self FAILED()
  * @method static self SUCCESS()
@@ -17,8 +16,7 @@ final class PaymentStatus extends Enum
     protected static function values(): array
     {
         return [
-            'CREATED' => 'created',
-            'GATEWAY' => 'gateway',
+            'PENDING' => 'pending',
             'EXPIRED' => 'expired',
             'FAILED' => 'failed',
             'SUCCESS' => 'success',
@@ -29,8 +27,7 @@ final class PaymentStatus extends Enum
     protected static function labels(): array
     {
         return [
-            'CREATED' => 'ایجاد شده',
-            'GATEWAY' => 'در حال پرداخت',
+            'PENDING' => 'در انتظار پرداخت',
             'EXPIRED' => 'منقضی شده',
             'FAILED' => 'ناموفق',
             'SUCCESS' => 'موفق',
