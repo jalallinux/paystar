@@ -67,7 +67,7 @@ class PaymentController extends Controller
      * @param Payment $payment
      * @return \Illuminate\Http\Response
      */
-    public function update(PaymentCallbackRequest $request, Payment $payment)
+    public function callback(PaymentCallbackRequest $request, Payment $payment)
     {
         $request->dd();
     }
