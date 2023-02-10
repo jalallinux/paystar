@@ -17,6 +17,10 @@ class PaymentIndexResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
+            'status' => [
+                'label' => $this->resource->status->label,
+                'value' => $this->resource->status->value,
+            ],
             'amount' => $this->resource->amount,
             'created_at' => $this->resource->created_at->timestamp,
         ];

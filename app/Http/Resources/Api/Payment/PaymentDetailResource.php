@@ -16,8 +16,13 @@ class PaymentDetailResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
+            'status' => [
+                'label' => $this->resource->status->label,
+                'value' => $this->resource->status->value,
+            ],
             'amount' => $this->resource->amount,
             'ref_num' => $this->resource->ref_num,
+            'transaction_id' => $this->resource->transaction_id,
             'token' => $this->resource->token,
             'url' => $this->resource->url,
             'created_at' => $this->resource->created_at->timestamp,

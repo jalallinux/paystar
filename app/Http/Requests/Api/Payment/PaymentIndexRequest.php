@@ -13,6 +13,6 @@ class PaymentIndexRequest extends PaginateAndOrderableRequest
 
     protected function orderedColumns(): array
     {
-        return ['id', 'amount', 'created_at', 'updated_at'];
+        return ['id', 'amount', 'status', 'created_at', 'updated_at'];
     }
 }
