@@ -20,7 +20,7 @@ module.exports = {
             interpreter: "php",
             script: "artisan",
             exec_mode: "fork",
-            instances: 4,
+            instances: 2,
             autorestart: true,
             cron_restart: "* 3 * * *",
             max_memory_restart: "200M",

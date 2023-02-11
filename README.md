@@ -33,9 +33,9 @@ docker-compose up -d
 docker exec -it paystar.jalallinux.ir bash
 ```
 
-### 4. Run migration command (in container)
+### 4. Run [setup](app/Console/Commands/Setup.php) command (in container)
 ```shell
-php artisan migrate:fresh --seed
+php artisan setup --full
 ```
 
 ### Check application on port [9020](http://localhost:9020)
