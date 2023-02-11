@@ -56,6 +56,10 @@ class PaymentObserver
                 $payment->update(['status' => PaymentStatus::ROLLBACK()]);
             }
         }
+
+        if ($payment->isDirty('status') && PaymentStatus::VERIFIED()->equals($payment->status)) {
+            $payment->user->increment('balance', $payment->amount);
+        }
     }
 
     /**
