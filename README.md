@@ -25,7 +25,7 @@ REDIS_PORT=
 
 ### 2. Build and up container
 ```shell
-docker-compose up -d
+docker-compose up --build -d
 ````
 
 ### 3. Go to docker container
