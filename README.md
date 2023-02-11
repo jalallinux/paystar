@@ -1,4 +1,4 @@
-<p align="center"><a href="https://paystar.jalallinux.ir" target="_blank"><img src="https://paystar.ir/homepage/image/logo.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://paystar.aspv.ir" target="_blank"><img src="https://paystar.ir/homepage/image/logo.svg" width="400" alt="Laravel Logo"></a></p>
 
 ## [Postman Documentation](https://documenter.getpostman.com/view/9339423/2s935sohUf)
 
@@ -30,7 +30,7 @@ docker-compose up --build -d
 
 ### 3. Go to docker container
 ```shell
-docker exec -it paystar.jalallinux.ir bash
+docker exec -it paystar.aspv.ir bash
 ```
 
 ### 4. Run [setup](app/Console/Commands/Setup.php) command (in container)
